@@ -31,7 +31,7 @@ def get_host_ip3():
 
 ip = get_host_ip3()
 port = 8003
-use_false_data = True
+use_false_data = False
 def process_html():
     lines = []
     with open(os.path.join(os.getcwd(),'index.html'), 'r', encoding='utf-8') as file_hd:
