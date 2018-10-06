@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title> DA 板实时状态显示</title>
+    <style type="text/css">
+        <!--table{-->
+            <!--border: 1px solid black;-->
+            <!--border-collapse: collapse;-->
+        <!--}-->
+        <!--td,th{-->
+            <!--border:1px solid black;-->
+        <!--}-->
+        th{
+          background:#00676B;
+          color:#FF4500;
+          line-height:20px;
+          height:30px;
+        }
+       td{
+         padding 6px 11px;
+         color: #000000;
+         border:1px solid #95bce2;
+         vertical-align:top;
+         text-align: center;
+       td * {
+          padding 6px 11px;
+       }
+       tr.alt td{
+          background: #ecf6fc;
+       }
+       tr.over td{
+          background: #bcd4ec;
+       }
+    </style>
+</head>
+<body>
+    <p>实时日志</p>
+    <div id="table1"></div>
+    <div style="vertical-align:top; width:100%;">
+    <table width="10%" style="table-layout:fixed;word-break:break-all; float:left;">
+    <tr>
+        <th  width="40">DA列表</th>
+    </tr>
+    <tr>
+        <td id = 'cur_da' >当前：</td>
+    </tr>
+    <tbody id="da_list">
+    <tr>
+        <td id='da_num'>0</td>
+    </tr>
+    </tbody>
+    </table>
+
+    <table width="90%" style="table-layout:fixed;word-break:break-all; float:right;">
+        <tr>
+            <th  width="40">索引</th>
+            <th>参数名</th>
+            <th>含义</th>
+            <th>原码</th>
+            <th  width="40">索引</th>
+            <th>参数名</th>
+            <th>含义</th>
+            <th>原码</th>
+        </tr>
+        <tbody id="content">
+        </tbody>
+
+    </table>
+    </div>
+
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        /* !window.WebSocket、window.MozWebSocket检测浏览器对websocket的支持*/
+        if (!window.WebSocket) {
+            if (window.MozWebSocket) {
+                window.WebSocket = window.MozWebSocket;
+            } else {
+                $('#table1').prepend("<p>你的浏览器不支持websocket</p>");
+            }
+        }
+        /* ws = new WebSocket 创建WebSocket的实例  注意设置对以下的websocket的地址哦*/
+        ws = new WebSocket('ws://192.168.1.191:8003/ws');
+        <!--ws.onmessage 接收到WebSocketServer发送过来的数据时，就会触发onmessage消息，参数evt中包含server传输过来的数据;-->
+        ws.onopen = function(evt) {
+            $('#table1').append('<li>websocket连接成功</li>');
+        }
+        var cnt = 0;
+        var table = document.getElementsByTagName('table')[0];
+
+        var da_tag = 'F-002';
+        var dev_num = 0;
+        <!--获取哪一个DA板被选中-->
+        function getCellValue(id) {
+            var obj = document.getElementById(id);
+            console.log('message: ' + id);
+            return obj.innerText;
+        }
+        var cur_da = document.getElementById('cur_da')
+        function set_click(id) {
+            var ths = document.getElementById(id)
+            console.log('设备: '+ths)
+            ths.onclick = function(){cur_da.innerText = ths.innerText;}
+        }
+
+        ws.onmessage = function(evt) {
+
+            var callback = $.parseJSON(evt.data);
+
+            <!--console.log('message: ' + callback.length);//打印出服务端返回过来的数据-->
+            <!--console.log('message: ' + dev_num);-->
+            da_tag = cur_da.innerText;
+            if (callback[5].value == da_tag){
+                var str1 = "";
+                //清空table中的html
+                $("#content").html("");
+
+                for (var i = 1; i < callback.length/2; i++) {
+                    <!--console.log('message: \n' + callback.length);//打印出服务端返回过来的数据-->
+                    <!--console.log('message: \n' + callback[i].name);//打印出服务端返回过来的数据-->
+                    var color1 = '#f2f2f2';
+                    if(callback[i*2].color != null && callback[i*2].color != ""){
+                        <!--console.log('颜色: ' + callback[i*2].name+callback[i*2].color);-->
+                        color1 = callback[i*2].color;
+                    }
+                    var color2 = '#f2f2f2';
+                    if(callback[i*2+1].color != null && callback[i*2+1].color != ""){
+                        <!--console.log('颜色: ' + callback[i*2+1].name+callback[i*2+1].color);-->
+                        color2 = callback[i*2+1].color;
+                    }
+                    str1 = "<tr>" +
+                        "<td>"+ (i*2-1) + "</td>" +
+                        "<td>"+callback[i*2].name + "</td>" +
+                        "<td bgcolor="+color1+">"+callback[i*2].value + "</td>" +
+                        "<td>"+callback[i*2].hex + "</td>" +
+                        "<td>"+ (i*2) + "</td>" +
+                        "<td>"+callback[i*2+1].name + "</td>" +
+                        "<td bgcolor="+color2+">"+callback[i*2+1].value + "</td>" +
+                        "<td>"+callback[i*2+1].hex + "</td>" +
+                        "</tr>";
+                    $("#content").append(str1);
+                }
+
+                cnt = cnt+1;
+                <!--var tr = table.insertRow(table.rows.length);-->
+                <!--for (var i=0; i<6; i++){-->
+                    <!--var td = tr.insertCell(tr.cells.length);-->
+                    <!--td.innerText = 'a';-->
+                <!--}-->
+                <!--$('#table1').prepend('<li>' + callback.wait_chec + '</li>');-->
+            }
+            <!--生成设备列表-->
+
+            if(dev_num != callback[0].hardware_num){
+                dev_num = callback[0].hardware_num;
+                $("#da_list").html("");
+                var str1 = "";
+                str1 = "<tr>" +
+                    "<td id='da_num'>"+dev_num+ "</td>" +
+                    "</tr>";
+                $("#da_list").append(str1);
+
+                for (var i = 0; i < callback[1].hardware_list.length; i++){
+                    <!--console.log('设备: '+str1)-->
+                    str1 = "<tr>" +
+                        "<td id='da_tag"+i+"'>"+ callback[1].hardware_list[i] + "</td>" +
+                        "</tr>";
+                    $("#da_list").append(str1);
+                }
+
+                var da_num = getCellValue("da_num");
+                <!--var cur_da = document.getElementById('cur_da')-->
+                <!--var tags =new Array(da_num);-->
+                <!--for(var i = 0; i < da_num; i++){-->
+                    <!--tags[i] = 'da_tag'+i;-->
+                <!--}-->
+                for(var i = 0; i < da_num; i++){
+                    set_click('da_tag'+i)
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
