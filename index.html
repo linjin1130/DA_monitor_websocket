@@ -81,7 +81,7 @@
             }
         }
         /* ws = new WebSocket 创建WebSocket的实例  注意设置对以下的websocket的地址哦*/
-        ws = new WebSocket('ws://192.168.1.191:8003/ws');
+        ws = new WebSocket('ws://192.168.1.135:8003/ws');
         <!--ws.onmessage 接收到WebSocketServer发送过来的数据时，就会触发onmessage消息，参数evt中包含server传输过来的数据;-->
         ws.onopen = function(evt) {
             $('#table1').append('<li>websocket连接成功</li>');
@@ -94,13 +94,13 @@
         <!--获取哪一个DA板被选中-->
         function getCellValue(id) {
             var obj = document.getElementById(id);
-            console.log('message: ' + id);
+            <!--console.log('message: ' + id);-->
             return obj.innerText;
         }
         var cur_da = document.getElementById('cur_da')
         function set_click(id) {
             var ths = document.getElementById(id)
-            console.log('设备: '+ths)
+            <!--console.log('设备: '+ths)-->
             ths.onclick = function(){cur_da.innerText = ths.innerText;}
         }
 
@@ -111,11 +111,11 @@
             <!--console.log('message: ' + callback.length);//打印出服务端返回过来的数据-->
             <!--console.log('message: ' + dev_num);-->
             da_tag = cur_da.innerText;
-            if (callback[5].value == da_tag){
+            var in_da_tag = callback[5].value;
+            if (in_da_tag == da_tag){
                 var str1 = "";
                 //清空table中的html
                 $("#content").html("");
-
                 for (var i = 1; i < callback.length/2; i++) {
                     <!--console.log('message: \n' + callback.length);//打印出服务端返回过来的数据-->
                     <!--console.log('message: \n' + callback[i].name);//打印出服务端返回过来的数据-->
@@ -151,8 +151,20 @@
                 <!--$('#table1').prepend('<li>' + callback.wait_chec + '</li>');-->
             }
             <!--生成设备列表-->
+            var need_update = 1;
+            var dev_num = getCellValue("da_num");
 
-            if(dev_num != callback[0].hardware_num){
+            if(dev_num == callback[0].hardware_num){
+                for(var i = 0; i < dev_num; i++){
+                    need_update = 0;
+                    if(callback[1].hardware_list[2][i] != callback[1].hardware_list[1][i]){
+                        need_update = 1;
+                        console.log('颜色: ' + callback[1].hardware_list[1][i]+pre_colors[i]);
+                    }
+                }
+            }
+
+            if(dev_num != callback[0].hardware_num || need_update == 1){
                 dev_num = callback[0].hardware_num;
                 $("#da_list").html("");
                 var str1 = "";
@@ -161,21 +173,18 @@
                     "</tr>";
                 $("#da_list").append(str1);
 
-                for (var i = 0; i < callback[1].hardware_list.length; i++){
-                    <!--console.log('设备: '+str1)-->
+                for (var i = 0; i < callback[1].hardware_list[0].length; i++){
+                    var id_str = "id='da_tag"+i+"' ";
+                    var color_str = "bgcolor='"+callback[1].hardware_list[1][i]+"'";
                     str1 = "<tr>" +
-                        "<td id='da_tag"+i+"'>"+ callback[1].hardware_list[i] + "</td>" +
+                        "<td "+id_str+color_str+">"+ callback[1].hardware_list[0][i] + "</td>" +
                         "</tr>";
+
                     $("#da_list").append(str1);
                 }
 
-                var da_num = getCellValue("da_num");
-                <!--var cur_da = document.getElementById('cur_da')-->
-                <!--var tags =new Array(da_num);-->
-                <!--for(var i = 0; i < da_num; i++){-->
-                    <!--tags[i] = 'da_tag'+i;-->
-                <!--}-->
-                for(var i = 0; i < da_num; i++){
+                dev_num = getCellValue("da_num");
+                for(var i = 0; i < dev_num; i++){
                     set_click('da_tag'+i)
                 }
             }

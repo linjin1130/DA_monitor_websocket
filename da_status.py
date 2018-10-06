@@ -59,6 +59,7 @@ class DAStatusParser:
         masked = self.masked_data
         parse = self.parse_data
         items = []
+        color = "#000000"
         t = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         items.append({
             'name': '采样时间',
@@ -76,7 +77,18 @@ class DAStatusParser:
             # print(data)
             seg_hex = int.from_bytes(seg, 'big')
             seg_data = masked(seg_hex, entry)
-            items.append(parse(seg_data, entry, i+1))
+            item = parse(seg_data, entry, i+1)
+            items.append(item)
+            if item['color'] == '#FF0000':
+                color = item['color']
+            elif item['color'] == '#0000FF':
+                if color != '#FF0000':
+                    color = item['color']
+            elif item['color'] == '#00FF00':
+                if(color != '#FF0000' and color != '#0000FF' ):
+                    color = item['color']
+
+
         if len(items) & 0x01 == 1:
             items.append({
                 'name': '采样时间',
@@ -86,4 +98,4 @@ class DAStatusParser:
                 'index': 0,
                 'parseType': 'calc'
             })
-        return items
+        return items, color

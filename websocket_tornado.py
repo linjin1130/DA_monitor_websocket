@@ -51,7 +51,7 @@ config.process_html()
 if __name__ == '__main__':
     ip = config.ip
     port = config.port
-    print('监视服务器启动于：{}：{}'.format(ip,port))
+    print('监视服务器启动于：{}:{}'.format(ip,port))
     print('请执行监视数据获取客户端')
     ws_app = Application(ip)
     server = tornado.httpserver.HTTPServer(ws_app)
