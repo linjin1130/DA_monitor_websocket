@@ -81,7 +81,7 @@
             }
         }
         /* ws = new WebSocket 创建WebSocket的实例  注意设置对以下的websocket的地址哦*/
-        ws = new WebSocket('ws://192.168.1.191:8003/ws');
+        ws = new WebSocket('ws://192.168.3.96:8003/ws');
         <!--ws.onmessage 接收到WebSocketServer发送过来的数据时，就会触发onmessage消息，参数evt中包含server传输过来的数据;-->
         ws.onopen = function(evt) {
             $('#table1').append('<li>websocket连接成功</li>');
