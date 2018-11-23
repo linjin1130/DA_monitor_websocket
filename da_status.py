@@ -60,6 +60,7 @@ class DAStatusParser:
         parse = self.parse_data
         items = []
         color = "#000000"
+        host = '0.0.0.0'
         t = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         items.append({
             'name': '采样时间',
@@ -87,6 +88,8 @@ class DAStatusParser:
             elif item['color'] == '#00FF00':
                 if(color != '#FF0000' and color != '#0000FF' ):
                     color = item['color']
+            if item['name'] == '当前上位机IP':
+                host = item['value']
 
 
         if len(items) & 0x01 == 1:
@@ -98,4 +101,4 @@ class DAStatusParser:
                 'index': 0,
                 'parseType': 'calc'
             })
-        return items, color
+        return items, color, host

@@ -3,31 +3,25 @@ from datetime import time, date
 
 import h5py  # 导入工具包
 import os
-date_str = date.today().strftime("%y%m%d")
-file_name = date_str +'.h5'
-f = None
-if not os.path.exists(file_name):
-    print('创建文件')
-    f = f = h5py.File(file_name, 'w')
-    dset = f.create_dataset(date_str, shape=(3600 * 24, 1024), dtype='i8')
-else:
-    f = h5py.File(file_name, 'a')  # 创建一个h5文件，文件指针是f
-data= [random.randint(0,255) for i in range(3600*25)]
-# data= [random.randint(0,255) for i in range(3600*25)]
-# data= [i%255 for i in range(3600*25)]
-# data = data*1024
-print('start')
-f[date_str][:,0] = data
+f5_names = []
+def append(name):
+    global f5_names
+    f5_names.append(name)
 
-# dset = f.create_dataset(date_str, shape=(3600*25, 1024), dtype='i8', compression='gzip')
-# dset = f.create_dataset(date_str, shape=(3600*25, 1024), dtype='i8', data=data)
-# dset = data
-# print(data)
-# data = 0
-#
-# # data.attrs["name"] = u"Hello"
-# dt = h5py.special_dtype(vlen=str)     # PY3
-# print(f.keys())
+date_str = date.today().strftime("%y%m%d")
+date_str = '181121'
+file_name = date_str +'.h5'
+new_file = 'new'+file_name
+with h5py.File(file_name, "r") as f:
+    f5_names = []
+    f.visit(append)
+    with h5py.File(new_file, "w") as nf:
+        for key in f5_names:
+            if isinstance(f[key], h5py.Dataset):
+                dset = f[key]
+                print(dset.shape)
+                nf.create_dataset(key, dtype='i8', shape=(3600*24, 1024), compression='gzip', data=dset[:,:])
+
 # if date_str not in f.keys():
 #     print('创建dset')
 #     dset = f.create_dataset(date_str, shape=(1, 1), dtype='i8', maxshape=(3600 * 25, 1), compression='gzip')
@@ -45,6 +39,5 @@ f[date_str][:,0] = data
 #     new_size = dset.size + 1
 #     dset.resize(new_size, axis=0)
 #     dset[dset.size - 1] = i%255
-f.close()
 
 

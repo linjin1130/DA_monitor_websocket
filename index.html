@@ -40,14 +40,14 @@
     <div style="vertical-align:top; width:100%;">
     <table width="10%" style="table-layout:fixed;word-break:break-all; float:left;">
     <tr>
-        <th  width="40">DA列表</th>
+        <th>上位机</th><th>DA列表</th>
     </tr>
     <tr>
-        <td id = 'cur_da' >当前：</td>
+        <td id = 'cur_host' >主机数</td><td id = 'cur_da' >当前：</td>
     </tr>
     <tbody id="da_list">
     <tr>
-        <td id='da_num'>0</td>
+        <td id='host_num'>0</td><td id='da_num'>0</td>
     </tr>
     </tbody>
     </table>
@@ -81,7 +81,7 @@
             }
         }
         /* ws = new WebSocket 创建WebSocket的实例  注意设置对以下的websocket的地址哦*/
-        ws = new WebSocket('ws://192.168.3.96:8003/ws');
+        ws = new WebSocket('ws://192.168.1.153:8003/ws');
         <!--ws.onmessage 接收到WebSocketServer发送过来的数据时，就会触发onmessage消息，参数evt中包含server传输过来的数据;-->
         ws.onopen = function(evt) {
             $('#table1').append('<li>websocket连接成功</li>');
@@ -154,22 +154,23 @@
             var need_update = 1;
             var dev_num = getCellValue("da_num");
 
-            if(dev_num == callback[0].hardware_num){
+            if(dev_num == callback[0].hardware_num[0]){
                 for(var i = 0; i < dev_num; i++){
                     need_update = 0;
                     if(callback[1].hardware_list[2][i] != callback[1].hardware_list[1][i]){
                         need_update = 1;
-                        console.log('颜色: ' + callback[1].hardware_list[1][i]+pre_colors[i]);
+                        console.log('颜色: ' + callback[1].hardware_list[1][i]);
                     }
                 }
             }
 
-            if(dev_num != callback[0].hardware_num || need_update == 1){
-                dev_num = callback[0].hardware_num;
+            if(dev_num != callback[0].hardware_num[0] || need_update == 1){
+                dev_num = callback[0].hardware_num[0];
+                host_num = callback[0].hardware_num[1];
                 $("#da_list").html("");
                 var str1 = "";
                 str1 = "<tr>" +
-                    "<td id='da_num'>"+dev_num+ "</td>" +
+                    "<td id='host_num'>"+host_num+ "</td>" +"<td id='da_num'>"+dev_num+ "</td>" +
                     "</tr>";
                 $("#da_list").append(str1);
 
@@ -177,7 +178,7 @@
                     var id_str = "id='da_tag"+i+"' ";
                     var color_str = "bgcolor='"+callback[1].hardware_list[1][i]+"'";
                     str1 = "<tr>" +
-                        "<td "+id_str+color_str+">"+ callback[1].hardware_list[0][i] + "</td>" +
+                        "<td>"+ callback[1].hardware_list[3][i] + "</td>" +"<td "+id_str+color_str+">"+ callback[1].hardware_list[0][i] + "</td>" +
                         "</tr>";
 
                     $("#da_list").append(str1);

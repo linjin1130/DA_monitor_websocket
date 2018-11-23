@@ -23,11 +23,15 @@ def get_host_ip2():
 #方法3
 def get_host_ip3():
     addrs = socket.getaddrinfo(socket.gethostname(),None)
+    net_seg = '127.0.0.1'
     for item in addrs:
         if (len(item[-1]) < 3):
             net_seg = int(item[-1][0].split('.')[0])
             if net_seg != 10:
+                net_seg = item[-1][0]
                 return item[-1][0]
+    return net_seg
+
 
 ip = get_host_ip3()
 port = 8003
