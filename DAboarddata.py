@@ -60,12 +60,12 @@ class DAbroaddata(object):
         if not false_data:
             data, addr = self.udpServer.recvfrom(self.bufsize)  # 接收数据和返回地址
             # print(data, addr)
-            f_data = struct.unpack('{}B'.format(len(data)), data)
-            hdf5_write(addr, f_data)
-            if prepare_data:
-                with open(os.path.join(os.getcwd(),'false_monitor_data.dat'), 'a', newline='') as fd_file:
-                    writer = csv.writer(fd_file)
-                    writer.writerow([list(data), addr], )
+            # f_data = struct.unpack('{}B'.format(len(data)), data)
+            # hdf5_write(addr, f_data)
+            # if prepare_data:
+            #     with open(os.path.join(os.getcwd(),'false_monitor_data.dat'), 'a', newline='') as fd_file:
+            #         writer = csv.writer(fd_file)
+            #         writer.writerow([list(data), addr], )
 
         else:
             # print(false_raw_data[self.pos%len(false_raw_data)])

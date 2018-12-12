@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title> DA 板实时状态显示</title>
+    <title> AWG实时状态显示</title>
     <style type="text/css">
         <!--table{-->
             <!--border: 1px solid black;-->
@@ -12,8 +12,8 @@
             <!--border:1px solid black;-->
         <!--}-->
         th{
-          background:#00676B;
-          color:#FF4500;
+          background:#32F1FF;
+          color:#000000;
           line-height:20px;
           height:30px;
         }
@@ -35,12 +35,12 @@
     </style>
 </head>
 <body>
-    <p>实时日志</p>
+    <p>AWG监视系统</p>
     <div id="table1"></div>
     <div style="vertical-align:top; width:100%;">
     <table width="10%" style="table-layout:fixed;word-break:break-all; float:left;">
     <tr>
-        <th>上位机</th><th>DA列表</th>
+        <th>上位机</th><th>AWG列表</th>
     </tr>
     <tr>
         <td id = 'cur_host' >主机数</td><td id = 'cur_da' >当前：</td>
@@ -84,14 +84,14 @@
         ws = new WebSocket('ws://192.168.1.153:8003/ws');
         <!--ws.onmessage 接收到WebSocketServer发送过来的数据时，就会触发onmessage消息，参数evt中包含server传输过来的数据;-->
         ws.onopen = function(evt) {
-            $('#table1').append('<li>websocket连接成功</li>');
+            $('#table1').append('<li>监视服务正常</li>');
         }
         var cnt = 0;
         var table = document.getElementsByTagName('table')[0];
 
         var da_tag = 'F-002';
         var dev_num = 0;
-        <!--获取哪一个DA板被选中-->
+        <!--获取哪一个AWG板被选中-->
         function getCellValue(id) {
             var obj = document.getElementById(id);
             <!--console.log('message: ' + id);-->
@@ -111,7 +111,8 @@
             <!--console.log('message: ' + callback.length);//打印出服务端返回过来的数据-->
             <!--console.log('message: ' + dev_num);-->
             da_tag = cur_da.innerText;
-            var in_da_tag = callback[5].value;
+            var in_da_tag = callback[4].value;
+            <!--var bg_color = '#FFFFFF'-->
             if (in_da_tag == da_tag){
                 var str1 = "";
                 //清空table中的html
@@ -119,12 +120,12 @@
                 for (var i = 1; i < callback.length/2; i++) {
                     <!--console.log('message: \n' + callback.length);//打印出服务端返回过来的数据-->
                     <!--console.log('message: \n' + callback[i].name);//打印出服务端返回过来的数据-->
-                    var color1 = '#f2f2f2';
+                    var color1 = '#000000';
                     if(callback[i*2].color != null && callback[i*2].color != ""){
                         <!--console.log('颜色: ' + callback[i*2].name+callback[i*2].color);-->
                         color1 = callback[i*2].color;
                     }
-                    var color2 = '#f2f2f2';
+                    var color2 = '#000000';
                     if(callback[i*2+1].color != null && callback[i*2+1].color != ""){
                         <!--console.log('颜色: ' + callback[i*2+1].name+callback[i*2+1].color);-->
                         color2 = callback[i*2+1].color;
@@ -132,11 +133,11 @@
                     str1 = "<tr>" +
                         "<td>"+ (i*2-1) + "</td>" +
                         "<td>"+callback[i*2].name + "</td>" +
-                        "<td bgcolor="+color1+">"+callback[i*2].value + "</td>" +
+                        "<td>" +"<font color="+color1+">"+callback[i*2].value + "</td>" +
                         "<td>"+callback[i*2].hex + "</td>" +
                         "<td>"+ (i*2) + "</td>" +
                         "<td>"+callback[i*2+1].name + "</td>" +
-                        "<td bgcolor="+color2+">"+callback[i*2+1].value + "</td>" +
+                        "<td>" +"<font color="+color2+">"+callback[i*2+1].value + "</td>" +
                         "<td>"+callback[i*2+1].hex + "</td>" +
                         "</tr>";
                     $("#content").append(str1);
@@ -176,9 +177,9 @@
 
                 for (var i = 0; i < callback[1].hardware_list[0].length; i++){
                     var id_str = "id='da_tag"+i+"' ";
-                    var color_str = "bgcolor='"+callback[1].hardware_list[1][i]+"'";
+                    var color_str = "color='"+callback[1].hardware_list[1][i]+"'";
                     str1 = "<tr>" +
-                        "<td>"+ callback[1].hardware_list[3][i] + "</td>" +"<td "+id_str+color_str+">"+ callback[1].hardware_list[0][i] + "</td>" +
+                        "<td>"+ callback[1].hardware_list[3][i] + "</td>" +"<td "+id_str+color_str+">"+"<font color="+callback[1].hardware_list[1][i]+">"+ callback[1].hardware_list[0][i] + "</td>" +
                         "</tr>";
 
                     $("#da_list").append(str1);

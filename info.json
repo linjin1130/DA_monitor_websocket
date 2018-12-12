@@ -1,1156 +1,432 @@
 [
-  {
-    "name": "本次运行时间",
-    "startByte": 12,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 3
-  },
-  {
-    "name": "主从板设置",
-    "startByte": 710,
-    "startBit": 0,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "备板",
-        "value": 0
-      },
-      "1": {
-        "name": "主板",
-        "color": "#0000FF",
-        "value": 1
+    {
+      "name": "本次运行时间",
+      "startByte": "12",
+      "dispIndex": "3",
+      "parseType": "calc",
+      "bitLength": "32",
+      "startBit": "0"
+    },
+    {
+      "name": "设备编号",
+      "startByte": "708",
+      "dispIndex": "9",
+      "parseType": "calc",
+      "bitLength": "16",
+      "startBit": "0"
+    },
+    {
+      "name": "初始化次数",
+      "startByte": "10",
+      "dispIndex": "0",
+      "parseType": "number",
+      "bitLength": "16",
+      "startBit": "0"
+    },
+    {
+      "name": "工作模式",
+      "startByte": "723",
+      "dispIndex": "0",
+      "parseType": "enum",
+      "bitLength": "1",
+      "startBit": "1",
+      "EnumValue": {
+        "0": {
+          "name": "多板工作",
+          "value": "0"
+        },
+        "1": {
+          "name": "单板工作",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "name": "AWG接收触发次数",
+      "startByte": "744",
+      "dispIndex": "4",
+      "parseType": "calc",
+      "bitLength": "32",
+      "startBit": "0"
+    },
+    {
+      "name": "计数-指令",
+      "startByte": "816",
+      "dispIndex": "4",
+      "parseType": "calc",
+      "bitLength": "32",
+      "startBit": "0"
+    },
+    {
+      "name": "计数-读寄存器",
+      "startByte": "800",
+      "dispIndex": "4",
+      "parseType": "calc",
+      "bitLength": "32",
+      "startBit": "0"
+    },
+    {
+      "name": "计数-写寄存器",
+      "startByte": "804",
+      "dispIndex": "4",
+      "parseType": "calc",
+      "bitLength": "32",
+      "startBit": "0"
+    },
+    {
+      "name": "计数-读存储器",
+      "startByte": "808",
+      "dispIndex": "4",
+      "parseType": "calc",
+      "bitLength": "32",
+      "startBit": "0"
+    },
+    {
+      "name": "计数-写存储器",
+      "startByte": "812",
+      "dispIndex": "4",
+      "parseType": "calc",
+      "bitLength": "32",
+      "startBit": "0"
+    },
+    {
+      "name": "当前HOST IP",
+      "startByte": "944",
+      "dispIndex": "7",
+      "parseType": "calc",
+      "bitLength": "32",
+      "startBit": "0"
+    },
+    {
+      "name": "通道1#输出状态",
+      "startByte": "700",
+      "dispIndex": "0",
+      "parseType": "enum",
+      "bitLength": "1",
+      "startBit": "0",
+      "EnumValue": {
+        "1": {
+          "name": "输出使能",
+          "value": "1"
+        },
+        "0": {
+          "name": "输出默认电压",
+          "value": "0"
+        }
+      }
+    },
+    {
+      "name": "通道1#命令执行状态",
+      "startByte": "700",
+      "dispIndex": "0",
+      "parseType": "enum",
+      "bitLength": "4",
+      "startBit": "4",
+      "EnumValue": {
+        "0":{
+          "name": "空闲",
+          "value": "0"
+        },
+        "1":{
+          "name": "读回",
+          "value": "1"
+        },
+        "3":{
+          "name": "读指令",
+          "value": "3"
+        },
+        "2":{
+          "name": "等触发",
+          "value": "2"
+        },
+        "5":{
+          "name": "读数据跳转",
+          "value": "5"
+        },
+        "6":{
+          "name": "等计时",
+          "value": "6"
+        },
+        "7":{
+          "name": "读数据",
+          "value": "7"
+        },
+        "4":{
+          "name": "读最后一个数据",
+          "value": "4"
+        }
+      }
+    },
+    {
+      "name": "通道2#输出状态",
+      "startByte": "702",
+      "dispIndex": "0",
+      "parseType": "enum",
+      "bitLength": "1",
+      "startBit": "0",
+      "EnumValue": {
+        "1":{
+          "name": "输出使能",
+          "value": "1"
+        },
+        "0":{
+          "name": "输出默认电压",
+          "value": "0"
+        }
+      }
+    },
+    {
+      "name": "通道2#命令执行状态",
+      "startByte": "702",
+      "dispIndex": "0",
+      "parseType": "enum",
+      "bitLength": "4",
+      "startBit": "4",
+      "EnumValue": {
+                "0":{
+          "name": "空闲",
+          "value": "0"
+        },
+        "1":{
+          "name": "读回",
+          "value": "1"
+        },
+        "3":{
+          "name": "读指令",
+          "value": "3"
+        },
+        "2":{
+          "name": "等触发",
+          "value": "2"
+        },
+        "5":{
+          "name": "读数据跳转",
+          "value": "5"
+        },
+        "6":{
+          "name": "等计时",
+          "value": "6"
+        },
+        "7":{
+          "name": "读数据",
+          "value": "7"
+        },
+        "4":{
+          "name": "读最后一个数据",
+          "value": "4"
+        }
+      }
+    },
+    {
+      "name": "通道3#输出状态",
+      "startByte": "704",
+      "dispIndex": "0",
+      "parseType": "enum",
+      "bitLength": "1",
+      "startBit": "0",
+      "EnumValue": {
+        "1": {
+          "name": "输出使能",
+          "value": "1"
+        },
+        "0": {
+          "name": "输出默认电压",
+          "value": "0"
+        }
+      }
+    },
+    {
+      "name": "通道3#命令执行状态",
+      "startByte": "704",
+      "dispIndex": "0",
+      "parseType": "enum",
+      "bitLength": "4",
+      "startBit": "4",
+      "EnumValue": {
+        "0":{
+          "name": "空闲",
+          "value": "0"
+        },
+        "1":{
+          "name": "读回",
+          "value": "1"
+        },
+        "3":{
+          "name": "读指令",
+          "value": "3"
+        },
+        "2":{
+          "name": "等触发",
+          "value": "2"
+        },
+        "5":{
+          "name": "读数据跳转",
+          "value": "5"
+        },
+        "6":{
+          "name": "等计时",
+          "value": "6"
+        },
+        "7":{
+          "name": "读数据",
+          "value": "7"
+        },
+        "4":{
+          "name": "读最后一个数据",
+          "value": "4"
+        }
+      }
+    },
+    {
+      "name": "通道4#输出状态",
+      "startByte": "706",
+      "dispIndex": "0",
+      "parseType": "enum",
+      "bitLength": "1",
+      "startBit": "0",
+      "EnumValue": {
+        "1":{
+          "name": "输出使能",
+          "value": "1"
+        },
+        "0":{
+          "name": "输出默认电压",
+          "value": "0"
+        }
+      }
+    },
+    {
+      "name": "通道4#命令执行状态",
+      "startByte": "706",
+      "dispIndex": "0",
+      "parseType": "enum",
+      "bitLength": "4",
+      "startBit": "4",
+      "EnumValue": {
+        "0":{
+          "name": "空闲",
+          "value": "0"
+        },
+        "1":{
+          "name": "读回",
+          "value": "1"
+        },
+        "3":{
+          "name": "读指令",
+          "value": "3"
+        },
+        "2":{
+          "name": "等触发",
+          "value": "2"
+        },
+        "5":{
+          "name": "读数据跳转",
+          "value": "5"
+        },
+        "6":{
+          "name": "等计时",
+          "value": "6"
+        },
+        "7":{
+          "name": "读数据",
+          "value": "7"
+        },
+        "4":{
+          "name": "读最后一个数据",
+          "value": "4"
+        }
+      }
+    },
+    {
+      "name": "通道#1_满电流",
+      "startByte": "115",
+      "dispIndex": "14",
+      "parseType": "calc",
+      "bitLength": "16",
+      "startBit": "0"
+    },
+    {
+      "name": "通道#3_满电流",
+      "startByte": "315",
+      "dispIndex": "14",
+      "parseType": "calc",
+      "bitLength": "16",
+      "startBit": "0"
+    },
+    {
+      "name": "通道#2_满电流",
+      "startByte": "117",
+      "dispIndex": "14",
+      "parseType": "calc",
+      "bitLength": "16",
+      "startBit": "0"
+    },
+    {
+      "name": "通道#4_满电流",
+      "startByte": "317",
+      "dispIndex": "14",
+      "parseType": "calc",
+      "bitLength": "16",
+      "startBit": "0"
+    },
+    {
+      "name": "通道#1,2_芯片状态",
+      "startByte": "121",
+      "dispIndex": "0",
+      "parseType": "enum",
+      "bitLength": "2",
+      "startBit": "6",
+      "EnumValue": {
+        "0":{
+          "name": "DATA为空状态",
+          "value": "0",
+          "color": "#FF0000"
+        },
+        "1":{
+          "name": "由数据处理转为空",
+          "value": "1",
+          "color": "#FF0000"
+        },
+        "2":{
+          "name": "由空转为数据处理",
+          "value": "2",
+          "color": "#FF0000"
+        },
+        "3":{
+          "name": "数据处理状态",
+          "value": "3",
+          "color": "#000000"
+        }
+      }
+    },
+    {
+      "name": "通道#3,4_芯片状态",
+      "startByte": "321",
+      "dispIndex": "0",
+      "parseType": "enum",
+      "bitLength": "2",
+      "startBit": "6",
+      "EnumValue": {
+        "0":{
+          "name": "DATA为空状态",
+          "value": "0",
+          "color": "#FF0000"
+        },
+        "1":{
+          "name": "由数据处理转为空",
+          "value": "1",
+          "color": "#FF0000"
+        },
+        "2":{
+          "name": "由空转为数据处理",
+          "value": "2",
+          "color": "#FF0000"
+        },
+        "3":{
+          "name": "数据处理状态",
+          "value": "3",
+          "color": "#000000"
+        }
       }
     }
-  },
-  {
-    "name": "PCB编号",
-    "startByte": 708,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "calc",
-    "dispIndex": 9
-  },
-  {
-    "name": "软件版本",
-    "startByte": 716,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 6
-  },
-  {
-    "name": "当前逻辑区域",
-    "startByte": 7,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "GOLDEN区",
-        "color": "#FF0000",
-        "value": 0
-      },
-      "255": {
-        "name": "UPDATE区",
-        "color": "#00FF00",
-        "value": 255
-      }
-    }
-  },
-  {
-    "name": "初始化次数",
-    "startByte": 10,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "自适应",
-    "startByte": 722,
-    "startBit": 7,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "未完成",
-        "value": 0
-      },
-      "1": {
-        "name": "完成",
-        "value": 1
-      }
-    }
-  },
-  {
-    "name": "抖动监视",
-    "startByte": 722,
-    "startBit": 6,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "正常",
-        "value": 0
-      },
-      "1": {
-        "name": "抖动",
-        "value": 1
-      }
-    }
-  },
-  {
-    "name": "DAC输出",
-    "startByte": 723,
-    "startBit": 0,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "关闭",
-        "value": 0
-      },
-      "1": {
-        "name": "开启",
-        "value": 1
-      }
-    }
-  },
-  {
-    "name": "上位机触发次数",
-    "startByte": 712,
-    "startBit": 0,
-    "bitLength": 24,
-    "parseType": "calc",
-    "dispIndex": 13
-  },
-  {
-    "name": "DAC触发次数",
-    "startByte": 744,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 4
-  },
-  {
-    "name": "触发输出状态",
-    "startByte": 778,
-    "startBit": 0,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "正在输出",
-        "value": 0
-      },
-      "1": {
-        "name": "输出完成",
-        "value": 1
-      }
-    }
-  },
-  {
-    "name": "total_count",
-    "startByte": 780,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "calc",
-    "dispIndex": 12
-  },
-  {
-    "name": "DAC输出延时/计数",
-    "startByte": 748,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "calc",
-    "dispIndex": 12
-  },
-  {
-    "name": "触发输出延时/计数",
-    "startByte": 752,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "calc",
-    "dispIndex": 12
-  },
-  {
-    "name": "触发输出宽度/计数",
-    "startByte": 756,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "calc",
-    "dispIndex": 12
-  },
-  {
-    "name": "一级触发间隔/计数",
-    "startByte": 760,
-    "startBit": 0,
-    "bitLength": 24,
-    "parseType": "calc",
-    "dispIndex": 13
-  },
-  {
-    "name": "二级触发间隔/计数",
-    "startByte": 764,
-    "startBit": 0,
-    "bitLength": 24,
-    "parseType": "calc",
-    "dispIndex": 13
-  },
-  {
-    "name": "一级触发次数",
-    "startByte": 768,
-    "startBit": 0,
-    "bitLength": 24,
-    "parseType": "calc",
-    "dispIndex": 13
-  },
-  {
-    "name": "二级触发次数",
-    "startByte": 772,
-    "startBit": 0,
-    "bitLength": 24,
-    "parseType": "calc",
-    "dispIndex": 13
-  },
-  {
-    "name": "指令计数-CMD_CTRL",
-    "startByte": 816,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 4
-  },
-  {
-    "name": "指令计数-RD_REG",
-    "startByte": 800,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 4
-  },
-  {
-    "name": "指令计数-WR_REG",
-    "startByte": 804,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 4
-  },
-  {
-    "name": "指令计数-RD_MEM",
-    "startByte": 808,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 4
-  },
-  {
-    "name": "指令计数-WR_MEM",
-    "startByte": 812,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 4
-  },
-  {
-    "name": "写MEM-地址",
-    "startByte": 820,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 4
-  },
-  {
-    "name": "写MEM-长度",
-    "startByte": 824,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 4
-  },
-  {
-    "name": "XXXX写MEM-剩余",
-    "startByte": 828,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 4
-  },
-  {
-    "name": "当前上位机IP",
-    "startByte": 944,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 7
-  },
-  {
-    "name": "上位机端口",
-    "startByte": 940,
-    "startBit": 0,
-    "bitLength": 32,
-    "parseType": "calc",
-    "dispIndex": 4
-  },
-  {
-    "name": "UDP-发送状态",
-    "startByte": 936,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 4
-  },
-  {
-    "name": "芯片1通道1#发送状态",
-    "startByte": 700,
-    "startBit": 0,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "1": {
-        "name": "RUNNING",
-        "value": 1
-      },
-      "0": {
-        "name": "输出默认电压",
-        "value": 0
-      }
-    }
-  },
-  {
-    "name": "芯片2通道1#发送状态",
-    "startByte": 704,
-    "startBit": 0,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "1": {
-        "name": "RUNNING",
-        "value": 1
-      },
-      "0": {
-        "name": "输出默认电压",
-        "value": 0
-      }
-    }
-  },
-  {
-    "name": "芯片1通道1#序列控制状态",
-    "startByte": 700,
-    "startBit": 4,
-    "bitLength": 4,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "ST_IDLE",
-        "value": 0
-      },
-      "1": {
-        "name": "ST_RD_BACK",
-        "value": 1
-      },
-      "3": {
-        "name": "ST_RD_SEQ",
-        "value": 3
-      },
-      "2": {
-        "name": "ST_WAIT_TRIG",
-        "value": 2
-      },
-      "5": {
-        "name": "ST_RD_LAST2",
-        "value": 5
-      },
-      "6": {
-        "name": "ST_WAIT_CNT",
-        "value": 6
-      },
-      "7": {
-        "name": "ST_RD_DATA",
-        "value": 7
-      },
-      "4": {
-        "name": "ST_RD_LAST",
-        "value": 4
-      }
-    }
-  },
-  {
-    "name": "芯片2通道1#序列控制状态",
-    "startByte": 704,
-    "startBit": 4,
-    "bitLength": 4,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "ST_IDLE",
-        "value": 0
-      },
-      "1": {
-        "name": "ST_RD_BACK",
-        "value": 1
-      },
-      "3": {
-        "name": "ST_RD_SEQ",
-        "value": 3
-      },
-      "2": {
-        "name": "ST_WAIT_TRIG",
-        "value": 2
-      },
-      "5": {
-        "name": "ST_RD_LAST2",
-        "value": 5
-      },
-      "6": {
-        "name": "ST_WAIT_CNT",
-        "value": 6
-      },
-      "7": {
-        "name": "ST_RD_DATA",
-        "value": 7
-      },
-      "4": {
-        "name": "ST_RD_LAST",
-        "value": 4
-      }
-    }
-  },
-  {
-    "name": "芯片1通道2#发送状态",
-    "startByte": 702,
-    "startBit": 0,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "1": {
-        "name": "RUNNING",
-        "value": 1
-      },
-      "0": {
-        "name": "输出默认电压",
-        "value": 0
-      }
-    }
-  },
-  {
-    "name": "芯片2通道2#发送状态",
-    "startByte": 706,
-    "startBit": 0,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "1": {
-        "name": "RUNNING",
-        "value": 1
-      },
-      "0": {
-        "name": "输出默认电压",
-        "value": 0
-      }
-    }
-  },
-  {
-    "name": "芯片1通道2#序列控制状态",
-    "startByte": 702,
-    "startBit": 4,
-    "bitLength": 4,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "ST_IDLE",
-        "value": 0
-      },
-      "1": {
-        "name": "ST_RD_BACK",
-        "value": 1
-      },
-      "3": {
-        "name": "ST_RD_SEQ",
-        "value": 3
-      },
-      "2": {
-        "name": "ST_WAIT_TRIG",
-        "value": 2
-      },
-      "5": {
-        "name": "ST_RD_LAST2",
-        "value": 5
-      },
-      "6": {
-        "name": "ST_WAIT_CNT",
-        "value": 6
-      },
-      "7": {
-        "name": "ST_RD_DATA",
-        "value": 7
-      },
-      "4": {
-        "name": "ST_RD_LAST",
-        "value": 4
-      }
-    }
-  },
-  {
-    "name": "芯片2通道2#序列控制状态",
-    "startByte": 706,
-    "startBit": 4,
-    "bitLength": 4,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "ST_IDLE",
-        "value": 0
-      },
-      "1": {
-        "name": "ST_RD_BACK",
-        "value": 1
-      },
-      "3": {
-        "name": "ST_RD_SEQ",
-        "value": 3
-      },
-      "2": {
-        "name": "ST_WAIT_TRIG",
-        "value": 2
-      },
-      "5": {
-        "name": "ST_RD_LAST2",
-        "value": 5
-      },
-      "6": {
-        "name": "ST_WAIT_CNT",
-        "value": 6
-      },
-      "7": {
-        "name": "ST_RD_DATA",
-        "value": 7
-      },
-      "4": {
-        "name": "ST_RD_LAST",
-        "value": 4
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_增益0",
-    "startByte": 115,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_增益0",
-    "startByte": 315,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_增益1",
-    "startByte": 117,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_增益1",
-    "startByte": 317,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_结温度",
-    "startByte": 119,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "calc",
-    "dispIndex": 2
-  },
-  {
-    "name": "AD9136#2_结温度",
-    "startByte": 319,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "calc",
-    "dispIndex": 2
-  },
-  {
-    "name": "AD9136#1_BSM状态",
-    "startByte": 121,
-    "startBit": 6,
-    "bitLength": 2,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "DATA为空状态",
-        "color": "#FF0000",
-        "value": 0
-      },
-      "1": {
-        "name": "由数据处理转为空",
-        "color": "#FF0000",
-        "value": 1
-      },
-      "2": {
-        "name": "由空转为数据处理",
-        "color": "#FF0000",
-        "value": 2
-      },
-      "3": {
-        "name": "数据处理状态",
-        "color": "#00FF00",
-        "value": 3
-      }
-    }
-  },
-  {
-    "name": "AD9136#2_BSM状态",
-    "startByte": 321,
-    "startBit": 6,
-    "bitLength": 2,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "DATA为空状态",
-        "color": "#FF0000",
-        "value": 0
-      },
-      "1": {
-        "name": "由数据处理转为空",
-        "color": "#FF0000",
-        "value": 1
-      },
-      "2": {
-        "name": "由空转为数据处理",
-        "color": "#FF0000",
-        "value": 2
-      },
-      "3": {
-        "name": "数据处理状态",
-        "color": "#00FF00",
-        "value": 3
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_芯片类型",
-    "startByte": 100,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "4": {
-        "name": "高速DAC",
-        "value": 4
-      }
-    }
-  },
-  {
-    "name": "AD9136#2_芯片类型",
-    "startByte": 300,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "4": {
-        "name": "高速DAC",
-        "value": 4
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_芯片标识",
-    "startByte": 101,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "17553": {
-        "name": "0x4491",
-        "value": 17553
-      }
-    }
-  },
-  {
-    "name": "AD9136#2_芯片标识",
-    "startByte": 301,
-    "startBit": 0,
-    "bitLength": 16,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "17553": {
-        "name": "0x4491",
-        "value": 17553
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_芯片等级",
-    "startByte": 103,
-    "startBit": 0,
-    "bitLength": 4,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "6": {
-        "name": "AD9136",
-        "value": 6
-      },
-      "4": {
-        "name": "AD9135",
-        "value": 4
-      }
-    }
-  },
-  {
-    "name": "AD9136#2_芯片等级",
-    "startByte": 303,
-    "startBit": 0,
-    "bitLength": 4,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "6": {
-        "name": "AD9136",
-        "value": 6
-      },
-      "4": {
-        "name": "AD9135",
-        "value": 4
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_芯片版本",
-    "startByte": 103,
-    "startBit": 4,
-    "bitLength": 4,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_芯片版本",
-    "startByte": 303,
-    "startBit": 4,
-    "bitLength": 4,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "FLASH擦除状态",
-    "startByte": 916,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_IRQ状态0",
-    "startByte": 104,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_IRQ状态0",
-    "startByte": 304,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_IRQ状态0-76",
-    "startByte": 104,
-    "startBit": 6,
-    "bitLength": 2,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "0": {
-        "name": "校准通过",
-        "value": 0
-      },
-      "1": {
-        "name": "校准失败",
-        "color": "#FF0000",
-        "value": 1
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_代码组同步标志",
-    "startByte": 202,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "255": {
-        "name": "代码组同步正常",
-        "value": 255
-      }
-    }
-  },
-  {
-    "name": "AD9136#2_代码组同步标志",
-    "startByte": 402,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "255": {
-        "name": "代码组同步正常",
-        "value": 255
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_帧同步标志",
-    "startByte": 203,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "255": {
-        "name": "帧同步正常",
-        "value": 255
-      }
-    }
-  },
-  {
-    "name": "AD9136#2_帧同步标志",
-    "startByte": 403,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "255": {
-        "name": "帧同步正常",
-        "value": 255
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_校验和标志",
-    "startByte": 204,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "255": {
-        "name": "校验和正常",
-        "value": 255
-      }
-    }
-  },
-  {
-    "name": "AD9136#2_校验和标志",
-    "startByte": 404,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "255": {
-        "name": "校验和正常",
-        "value": 255
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_初始化LANE同步标志",
-    "startByte": 205,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "255": {
-        "name": "初始化LANE同步正常",
-        "value": 255
-      }
-    }
-  },
-  {
-    "name": "AD9136#2_初始化LANE同步标志",
-    "startByte": 405,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "255": {
-        "name": "初始化LANE同步正常",
-        "value": 255
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_错误计数监测",
-    "startByte": 197,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_错误计数监测",
-    "startByte": 397,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_失败校验错误",
-    "startByte": 198,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_失败校验错误",
-    "startByte": 398,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_不在表中错误",
-    "startByte": 199,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_不在表中错误",
-    "startByte": 399,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_非预期控制字符错误",
-    "startByte": 200,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_非预期控制字符错误",
-    "startByte": 400,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_JESD检查",
-    "startByte": 108,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_JESD检查",
-    "startByte": 308,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_LMFC当前同步对齐错误",
-    "startByte": 113,
-    "startBit": 0,
-    "bitLength": 4,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_LMFC当前同步对齐错误",
-    "startByte": 313,
-    "startBit": 0,
-    "bitLength": 4,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_LMFC当前对齐错误标志",
-    "startByte": 114,
-    "startBit": 7,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "1": {
-        "name": "当前同步错误超过下边界",
-        "value": 1
-      },
-      "0": {
-        "name": "正常",
-        "value": 0
-      }
-    }
-  },
-  {
-    "name": "AD9136#2_LMFC当前同步错误标志",
-    "startByte": 314,
-    "startBit": 7,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "1": {
-        "name": "当前同步错误超过下边界",
-        "value": 1
-      },
-      "0": {
-        "name": "正常",
-        "value": 0
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_LMFC当前同步错误标志",
-    "startByte": 114,
-    "startBit": 6,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "1": {
-        "name": "当前同步错误超过上边界",
-        "value": 1
-      },
-      "0": {
-        "name": "正常",
-        "value": 0
-      }
-    }
-  },
-  {
-    "name": "AD9136#2_LMFC当前同步错误标志",
-    "startByte": 314,
-    "startBit": 6,
-    "bitLength": 1,
-    "parseType": "enum",
-    "dispIndex": 0,
-    "EnumValue": {
-      "1": {
-        "name": "当前同步错误超过上边界",
-        "value": 1
-      },
-      "0": {
-        "name": "正常",
-        "value": 0
-      }
-    }
-  },
-  {
-    "name": "AD9136#1_PRBS错误",
-    "startByte": 122,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_PRBS错误",
-    "startByte": 322,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_动态链路0延时",
-    "startByte": 123,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_动态链路0延时",
-    "startByte": 323,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_动态链路1延时",
-    "startByte": 124,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_动态链路1延时",
-    "startByte": 324,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#1_中断向量",
-    "startByte": 206,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  },
-  {
-    "name": "AD9136#2_中断向量",
-    "startByte": 406,
-    "startBit": 0,
-    "bitLength": 8,
-    "parseType": "number",
-    "dispIndex": 0
-  }
-]
+  ]

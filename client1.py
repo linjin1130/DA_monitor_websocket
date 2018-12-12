@@ -31,7 +31,7 @@ async def chat():
             # 通过网络监视接口，获取原始监视数据
             message, addr = udp_rc.dabroad_datareq(false_data=use_false_data)
             msg, color, host = da_parse.bytes_to_str(message)
-            da_dict[msg[3]['value']] = [color,ttl, host]
+            da_dict[msg[2]['value']] = [color,ttl, host]
             # da_set.add(msg[3]['value'])
             # da_list = list(da_set)
             # da_dict.sort()
@@ -44,7 +44,7 @@ async def chat():
                     da_dict[key] = val
                     if val[1] < 1:
                         rm_key.append(key)
-                        print(f'数据源{key}不再更新')
+                        # print(f'数据源{key}不再更新')
                 for key in rm_key:
                     da_dict.pop(key)
                 last_time = time.time()

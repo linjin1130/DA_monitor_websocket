@@ -33,10 +33,24 @@ def calc_09(x):
         s = chr(ord('A') + ser)
     else:
         s = 'A/B'
-    return f'{s}-{num:03d}'
+    return f'{num:03d}'
 
 def calc_12(x):
     return struct.unpack("<H", struct.pack(">H", x))[0]
 
 def calc_13(x):
-    return struct.unpack("<I", struct.pack(">I", x))[0]
+
+    return struct.unpack("<I", struct.pack(">I", x))[0] >> 8
+
+def calc_14(x):
+    """
+    返回满电流码值对应的电压值
+    :param value: 满电流码值
+    :return: 电压值
+    """
+    value = x
+    sign = value >> 9
+    code = value & 0x1FF
+    current = round(20.48 + ((code - (sign << 9)) * 13.1) / 1024, 3)
+    # volts = (20.48 + ((code - (sign << 9)) * 13.1) / 512) * 0.05
+    return f'{current}mA'

@@ -17,14 +17,14 @@ class DAStatusParser:
 
     def byte_position(self, entry):
         get_byte_len = lambda l: (l >> 3) + ((l & 7) > 0)
-        byte_offset = entry['startByte']
-        bit_len = entry['bitLength']
-        byte_len = get_byte_len(bit_len + entry['startBit'])
+        byte_offset = int(entry['startByte'])
+        bit_len = int(entry['bitLength'])
+        byte_len = get_byte_len(bit_len + int(entry['startBit']))
         return byte_offset, byte_len
 
     def masked_data(self, data, entry):
-        bit_offset = entry['startBit']
-        bit_len = entry['bitLength']
+        bit_offset = int(entry['startBit'])
+        bit_len = int(entry['bitLength'])
         mask = ((1 << bit_len) - 1) << bit_offset
         masked = (data & mask) >> bit_offset
         return masked
@@ -37,11 +37,14 @@ class DAStatusParser:
             value = option.get('name', 'undefined')
             color = option.get('color')
         elif parse_type == 'calc':
-            calc_index = entry['dispIndex']
+            calc_index = int(entry['dispIndex'])
             func = getattr(calc, f'calc_{calc_index:02d}', lambda x: x)
             value = func(data)
         else:
             value = data
+        # tt = f'{data:0{w}X}'
+        # for i in range(len(tt)>>1):
+        #     nn += tt[len(tt)-2*i-1:len(tt)-2*i]
         w = len(hex(data)) - 2
         w = w + (w & 1)
         return {
@@ -88,7 +91,7 @@ class DAStatusParser:
             elif item['color'] == '#00FF00':
                 if(color != '#FF0000' and color != '#0000FF' ):
                     color = item['color']
-            if item['name'] == '当前上位机IP':
+            if item['name'] == '当前HOST IP':
                 host = item['value']
 
 
